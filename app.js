@@ -20,10 +20,10 @@ const corsOrigin = {
   credentials: true,
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
   origin: [
+    'http://mestoback.nomoreparties.sbs',
+    'https://mestoback.nomoreparties.sbs',
     'http://localhost:3000',
-    'http://localhost:3001',
     'https://localhost:3000',
-    'https://localhost:3001',
   ],
 };
 
