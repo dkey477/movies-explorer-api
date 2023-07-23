@@ -11,10 +11,10 @@ const {
   SUCCESS_LOGOUT,
   SUCCESS_AUTH,
 } = require('../utils/constants');
-const {
-  JWT_SECRET,
-  NODE_ENV,
-} = require('../utils/config');
+// const {
+//   JWT_SECRET,
+//   NODE_ENV,
+// } = require('../utils/config');
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -23,7 +23,7 @@ const login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? `${JWT_SECRET}` : 'dev-secret',
+        process.env.NODE_ENV === 'production' ? `${process.env.JWT_SECRET}` : 'dev-secret',
         { expiresIn: '7d' },
       );
       res.cookie('jwt', token, {
