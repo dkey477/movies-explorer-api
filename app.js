@@ -1,9 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const { errors } = require('celebrate');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const { errors } = require('celebrate');
 const cors = require('cors');
 const router = require('./routes/index');
 const errorCenter = require('./middlewares/errorCenter');
@@ -39,11 +39,11 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
+app.use(RATE_LIMIT);
+
 app.use(router);
 
 app.use(errorLogger);
-
-app.use(RATE_LIMIT);
 
 app.use(errors());
 app.use(errorCenter);

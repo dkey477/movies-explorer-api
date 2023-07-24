@@ -10,4 +10,4 @@
 
 IP-адрес: 51.250.10.6
 
-Backend: https://api.mestodkey47.nomoreparties.sbs
+Backend: https://mestoback.nomoreparties.sbs

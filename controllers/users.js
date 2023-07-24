@@ -66,7 +66,6 @@ const createUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError(INCORRECT_DATA_SENT));
-        return;
       }
       if (err.code === 11000) {
         next(new ConflictRequestError(USER_EXISTS));
@@ -87,10 +86,22 @@ const updateUser = (req, res, next) => {
     },
   )
     .then((user) => {
-      if (user) return res.send({ user });
-      throw new NotFoundError(USER_NOT_FOUND);
+      if (!user) {
+        throw new NotFoundError(USER_NOT_FOUND);
+      }
+      res.send({ user });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequestError(INCORRECT_DATA_SENT));
+        return;
+      }
+      if (err.code === 11000) {
+        next(new ConflictRequestError(USER_EXISTS));
+        return;
+      }
+      next(err);
+    });
 };
 
 const logout = (req, res, next) => {
